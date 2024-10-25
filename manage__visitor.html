@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <script type="text/javascript">
+            var contextPath = "/pap";
+        </script>
+        <link rel="stylesheet" href="css/layout.css">
+        <link rel="stylesheet" href="css/common.css">
+        <!-- <link rel="shortcut icon" href="/pap/common/images/common/favicon.ico"> -->
+        <script src="js/chart.min.js"></script>
+        <script src="js/chartjs-plugin-datalabels.js"></script>
+        <script src="js/jquery-3.7.0.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/lpap.js"></script>
+    </head>
+    <body>
+        <div id="body">
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <title>방문자 통계</title>
+                    <link rel="stylesheet" href="css/jquery-ui.min.css">
+                    <link rel="stylesheet" href="css/style.css">
+                </head>
+                <body>
+                    <div id="contents">
+                        <div class="visual sub4">
+                            <div class="inner">
+                                <p>방문자 통계</p>
+                                <p>방문자 통계를 관리할 수 있는 페이지입니다.</p>
+                            </div>
+                        </div>
+                        <div class="conBody inner">
+                            <!-- breadcrumb -->
+                            <nav class="breadcrumb pb40" style="padding-bottom: 40px;">
+                                <ol class="path">
+                                    <li class="home"><a href="#" class="txt">홈</a></li>
+                                    <li><a href="#" class="txt">통계및보고서관리</a></li>
+                                    <li><a href="ac__management.html" class="txt">방문자 통계</a></li>
+                                </ol>
+                            </nav>
+                            <!-- ./ breadcrumb -->
+                            <div class="flexBox mb10">
+                                <!-- tab -->
+                                <div class="tabBtns clear w_px360">
+                                    <h2 class="w_per33"><button type="button" class="active">일별</button></h2>
+                                    <h2 class="w_per33" id="accnPbanTab"><button type="button" class="line">월별</button></h2>
+                                    <h2 class="w_per33"><button type="button" class="line">연도별</button></h2>
+                                </div>
+                                <!-- ./ tab -->
+                                <!-- buttonRow -->
+                                <div class="flexItem_r">
+                                    <button type="button" class="btnG" onclick="fn_reset();">초기화</button>
+                                    <button type="button" class="btnB" onclick="fn_save();">조회</button>
+                                    <button type="button" class="btnBk" onclick="fn_save();">다운로드</button>
+                                </div>
+                                <!-- ./ buttonRow -->
+                            </div>
+                            <!-- 탭 콘텐츠 1 (일별 통계) -->
+                            <div class="tabContent">
+                                <form class="searchBox flexBox style1" id="frmSearch" method="POST">
+                                    <input type="hidden" id="pageNo" name="pageNo" value="">
+                                    <input type="hidden" id="lbrUniId" name="lbrUniId" value="">
+                                    <div class="select relative w_per10 miw_100">
+                                        <select class="ml0 mr5" id="year" name="year">
+                                        <option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option></select>
+                                    </div>
+                                    <div class="select relative w_per10 miw_100 ml5">
+                                        <label for="select" class="blind">월선택</label>
+                                        <select class="" id="select" name="searchField">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                        </select>
+                                    </div>
+                                    <label for="" class="mw_40" style="opacity: 0; width: 0;">일선택</label>
+                                </form>
+                                <h3 class="dataTitle">조회결과
+                                    <!-- P : 
+                                    통일성 위해 총 방문자 수 제작
+                                    -->
+                                    <!-- <div class="count">총 방문자 수 :<span>4</span>명</div> -->
+                                </h3>
+                                <div class="table mb27 table_wrap">
+                                    <table class="table hover miw_600" id="tableList">
+                                        <caption>일별 방문자 통계</caption>
+                                        <colgroup>
+                                            <col style="width: 120px;">
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">구분</th>
+                                                <th>1</th>
+                                                <th>2</th>
+                                                <th>3</th>
+                                                <th>4</th>
+                                                <th>5</th>
+                                                <th>6</th>
+                                                <th>7</th>
+                                                <th>8</th>
+                                                <th>9</th>
+                                                <th>10</th>
+                                                <th>11</th>
+                                                <th>12</th>
+                                                <th>13</th>
+                                                <th>14</th>
+                                                <th>15</th>
+                                                <th>16</th>
+                                                <th>17</th>
+                                                <th>18</th>
+                                                <th>19</th>
+                                                <th>20</th>
+                                                <th>21</th>
+                                                <th>22</th>
+                                                <th>23</th>
+                                                <th>24</th>
+                                                <th>25</th>
+                                                <th>26</th>
+                                                <th>27</th>
+                                                <th>28</th>
+                                                <th>29</th>
+                                                <th>30</th>
+                                                <th>31</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="txt_r">방문자수</td>
+                                                <td class="txt_r">2,456</td>
+                                                <td class="txt_r">3,789</td>
+                                                <td class="txt_r">4,321</td>
+                                                <td class="txt_r">5,678</td>
+                                                <td class="txt_r">6,543</td>
+                                                <td class="txt_r">7,890</td>
+                                                <td class="txt_r">8,123</td>
+                                                <td class="txt_r">9,876</td>
+                                                <td class="txt_r">10,234</td>
+                                                <td class="txt_r">11,345</td>
+                                                <td class="txt_r">12,456</td>
+                                                <td class="txt_r">13,567</td>
+                                                <td class="txt_r">14,678</td>
+                                                <td class="txt_r">15,789</td>
+                                                <td class="txt_r">16,890</td>
+                                                <td class="txt_r">17,901</td>
+                                                <td class="txt_r">18,012</td>
+                                                <td class="txt_r">19,123</td>
+                                                <td class="txt_r">20,234</td>
+                                                <td class="txt_r">21,345</td>
+                                                <td class="txt_r">22,456</td>
+                                                <td class="txt_r">23,567</td>
+                                                <td class="txt_r">24,678</td>
+                                                <td class="txt_r">25,789</td>
+                                                <td class="txt_r">26,890</td>
+                                                <td class="txt_r">27,901</td>
+                                                <td class="txt_r">28,012</td>
+                                                <td class="txt_r">29,123</td>
+                                                <td class="txt_r">30,234</td>
+                                                <td class="txt_r">31,345</td>
+                                                <td class="txt_r">50,000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- ./ 탭 콘텐츠 1 (일별 통계) -->
+                            <!-- 탭 콘텐츠 2 (월별 통계) -->
+                            <div class="tabContent">
+                                <form class="searchBox flexBox style1" id="frmSearch" method="POST">
+                                    <input type="hidden" id="pageNo" name="pageNo" value="">
+                                    <div class="select relative w_per10 miw_100">
+                                        <select class="ml0 mr5" id="year" name="year">
+                                        <option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option></select>
+                                    </div>
+                                    <label for="" class="mw_40" style="opacity: 0; width: 0;">월선택</label>
+                                </form>
+                                <h3 class="dataTitle">조회결과
+                                    <!-- P : 
+                                    통일성 위해 총 방문자 수 제작
+                                    -->
+                                    <!-- <div class="count">총 방문자 수 :<span>4</span>명</div> -->
+                                </h3>
+                                <div class="table mb27 table_wrap">
+                                    <table class="table hover miw_600" id="tableList">
+                                        <caption>월별 방문자 통계</caption>
+                                        <colgroup>
+                                            <col style="width: 120px;">
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">구분</th>
+                                                <th>1</th>
+                                                <th>2</th>
+                                                <th>3</th>
+                                                <th>4</th>
+                                                <th>5</th>
+                                                <th>6</th>
+                                                <th>7</th>
+                                                <th>8</th>
+                                                <th>9</th>
+                                                <th>10</th>
+                                                <th>11</th>
+                                                <th>12</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="txt_c">방문자수</td>
+                                                <td class="txt_r">0</td>
+                                                <td class="txt_r">3,789</td>
+                                                <td class="txt_r">4,321</td>
+                                                <td class="txt_r">5,678</td>
+                                                <td class="txt_r">6,543</td>
+                                                <td class="txt_r">7,890</td>
+                                                <td class="txt_r">8,123</td>
+                                                <td class="txt_r">8,123</td>
+                                                <td class="txt_r">8,123</td>
+                                                <td class="txt_r">8,123</td>
+                                                <td class="txt_r">8,123</td>
+                                                <td class="txt_r">8,123</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- ./ 탭 콘텐츠 2 (월별 통계) -->
+                            <!-- 탭 콘텐츠 3 (연도별 통계) -->
+                            <div class="tabContent">
+                                <form class="searchBox flexBox style1" id="frmSearch" method="POST">
+                                    <input type="hidden" id="pageNo" name="pageNo" value="">
+                                    <label for="" class="mw_40" style="opacity: 0; width: 0;">연도선택</label>
+                                </form>
+                                <h3 class="dataTitle">조회결과
+                                    <!-- P : 
+                                    통일성 위해 총 방문자 수 제작
+                                    -->
+                                    <!-- <div class="count">총 방문자 수 :<span>4</span>명</div> -->
+                                </h3>
+                                <div class="table">
+                                    <table class="table hover mw_400">
+                                        <caption>방문자 연도별 통계</caption>
+                                        <colgroup>
+                                        <col>
+                                        <col>
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>연도</th>
+                                                <th>방문자수</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="txt_c">2024</td>
+                                                <td class="txt_r">1,500</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="txt_c">2023</td>
+                                                <td class="txt_r">1,500</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="txt_c">2022</td>
+                                                <td class="txt_r">1,200</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- ./ 탭 콘텐츠 2 (연도별 통계) -->
+                        </div>
+                    </div>
+                </body>
+            </html>
+        </div>
+        <div class="gnb__bg"></div>
+    </body>
+</html>

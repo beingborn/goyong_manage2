@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <script type="text/javascript">
+            var contextPath = "/pap";
+        </script>
+        <link rel="stylesheet" href="css/layout.css">
+        <link rel="stylesheet" href="css/common.css">
+        <!-- <link rel="shortcut icon" href="/pap/common/images/common/favicon.ico"> -->
+        <script src="js/chart.min.js"></script>
+        <script src="js/chartjs-plugin-datalabels.js"></script>
+        <script src="js/jquery-3.7.0.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/lpap.js"></script>
+    </head>
+    <body>
+
+        <body>
+            <div id="contents">
+                <div class="visual sub3">
+                    <div class="inner"><p>회계공시등록</p><p>회계공시를 입력해 주세요.</p></div>
+                </div>
+                <div class="subNav">
+                    <div class="inner h_per100 clear">
+                        <a class="home" href="/pap/main/main.do"><span class="blind">메인페이지로 가기</span></a>
+                        <div class="depth1">
+                            <button type="button" class="depth1">회계공시등록</button>
+                            <ul>
+                                <li><a href="/pap/sysGuid/accnPbanSys.do">시스템 안내</a></li>
+                                <li><a href="/pap/accnPban/accnPbanPrsl.do">회계공시열람</a></li>
+                        
+                                <li><a href="/pap/accnPbanReg/accnPbanReg.do">회계공시등록</a></li>
+                        
+                            
+                            </ul>
+                        </div>
+                        <div class="depth2">
+                            <button type="button">회계공시등록</button>
+                            <ul>
+                                <li><a href="/pap/accnPbanReg/accnPbanReg.do">회계공시등록</a></li>
+                                <li><a href="/pap/accnPban/afogMng.do">가맹노조(산하조직)관리</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <form id="frmMain1" name="frmMain1" action="post">
+                    <input type="hidden" id="situation" name="situation" value="S" />
+                    <input type="hidden" id="regSub" name="regSub" value="" />
+                </form>
+                <div class="conBody inner sub2_dCon">
+                    <div class="tabBtns clear mb10">
+                        <h2 class="w_per50" id="lbrUniBaseTab"><button type="button" class="active">노동조합정보</button></h2>
+                        <h2 class="w_per50" id="accnPbanTab"><button type="button" class="line" onclick="isChangedFormValue(event);">회계공시</button></h2>
+                    </div>
+                    
+                    <form id="frmLbrUniBase" name="frmLbrUniBase" action="post">
+                        <input type="hidden" id="userId" name="userId" value="dolmin0708" />
+                        <input type="hidden" id="rcvAgrYn" name="rcvAgrYn2" value="N"/>
+                        <div class="tabContent" id="lbrUniBaseCont">
+                            <h2 class="dataTitle">기본사항
+                                <div class="btnTootip">
+                                    <p class="tooltip"><span class="list">가.</span> 회계연도 종료일이 12월 31일이 아닌 경우에는 회계연도 종료일이 속한 연도를 입력합니다. (예시: 회계연도가 10월 1일에 시작하고 9월 30일에 종료하는 노조가 '21.10.1~'22.9.30 회계를 공표하려는 경우 회계연도에 2022년을 입력합니다.)<br>
+                                        <span class="list">나.</span> 노동조합(또는 산하조직) 명칭은 「노동조합 및 노동관계조정법」제 11조제1호에 따른 명칭 또는 노동조합의 규약에서 정하고 있는 산하조직 명칭을 입력합니다.<br>
+                                        <span class="list">다.</span> 상급단체의 명칭은 「노동조합 및 노동관계조정법」제 11조제5호에 따른 명칭을 입력합니다.<br>
+                <!-- 						<span class="list">라.</span> 조합원 수는 회계연도 종료일 현재의 조합원 수를 입력합니다. 회계연도 종료일이 12월 31일이 아닌 경우에는 해당 회계연도 종료일 이전의 최근 12월 31일 기준 조합원 수를 입력합니다.<br> -->
+                                        <span class="list">라.</span> 조합원 수는 작성일 직전연도 12월 31일 기준 조합원 수를 입력합니다.<br>
+                                        <span class="list">마.</span> 설립연월일은 노동조합현황 정기통보서 상 노동조합 설립일을 입력합니다.<br>
+                                        <span class="list">바.</span> 소재지는 노동조합현황정기통보서 상 주된 사무소의 소재지를 입력합니다.<br>
+                                    </p>
+                                </div>
+                            </h2>
+                            <div class="table horizontal mb20">
+                                <table id="lbrUniBaseInfo">
+                                    <caption>조합 기본사항(회계연도, 노동조합 명칭(또는 산하조직), 노동조합 약어명, 조직형태, 소속된 연합단체의 명칭, 사업자등록번호, 대표자, 설립연월일, 조합원수, 담당자명, 담당자이메일, 유선연락처, 소재지) 입력폼</caption>
+                                    <colgroup>
+                                        <col width="15%" />
+                                        <col />
+                                        <col width="15%" />
+                                        <col />
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th><label for="lbrUniNm" class="compulsory">노동조합 명칭<br>(또는 산하조직)</label></th>
+                                            <td>
+                                                <input type="text" id="lbrUniNm" name="lbrUniNm"  title="노동조합 명칭" value="a" class="txt_l" maxlength="50">
+                                            </td>
+                                            <th><label for="lbrUniAbrvNm">노동조합 약어명</label></th>
+                                            <td>
+                                                <input type="text" id="lbrUniAbrvNm" name="lbrUniAbrvNm" value="a" class="txt_l" maxlength="50">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="ognzUnitCd">조직단위</label></th>
+                                            <td>
+                                                <div class="select w_per100">
+                                                    <select id="ognzUnitCd" name="ognzUnitCd">
+                                                        <option value="">선택</option>
+                                                        
+                                                        <option value="01">기업</option>    
+                                                        
+                                                        <option value="02">사업장</option>    
+                                                        
+                                                        <option value="03">특정지역</option>    
+                                                        
+                                                        <option value="04">전국</option>    
+                                                        
+                                                        <option value="05">기관노조</option>    
+                                                        
+                                                        <option value="06">연합단체</option>    
+                                                        
+                                                    </select>
+                                                    <input type="hidden" id="ognzUnitNm" name="ognzUnitNm" value="" />
+                                                </div>
+                                            </td>
+                                            <th><label for="lbrUniStleCd">조합형태</label></th>
+                                            <td>
+                                                <div class="select w_per100">
+                                                    <select id="lbrUniStleCd" name="lbrUniStleCd">
+                                                        <option value="">선택</option>
+                                                        
+                                                        <option value="01">단위노조</option>
+                                                        
+                                                        <option value="02">지부</option>
+                                                        
+                                                        <option value="03">지회</option>
+                                                        
+                                                        <option value="04">분회</option>
+                                                        
+                                                        <option value="05">전국규모 산별단위노조</option>
+                                                        
+                                                        <option value="06">연합단체</option>
+                                                        
+                                                        <option value="07">총연합단체</option>
+                                                        
+                                                    </select>
+                                                       <input type="hidden" id="lbrUniStleNm" name="lbrUniStleNm" value="" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="fdrtGrpCd">상급단체의 명칭</label></th>
+                                            <td colspan="3">
+                                                <div class="flexBox w_per100">
+                                                    <div class="select w_per20" id="d1fdrtGrpCd">
+                                                        <select id="fdrtGrpCd" name="fdrtGrpCd" title="총연합단체" onFocus="this.initialSelect = this.selectedIndex;">
+                                                            <option value="">총연합단체 선택</option>
+                                                            
+                                                            <option value="10">한국노동조합총연맹</option>
+                                                            
+                                                            <option value="20">전국민주노동조합총연맹</option>
+                                                            
+                                                            <option value="40">대한민국노동조합총연맹</option>
+                                                            
+                                                            <option value="98">기타</option>
+                                                            
+                                                            <option value="99">총연합단체미가입</option>
+                                                            
+                                                            <option value="00">직접입력</option>
+                                                        </select>
+                                                        <input type="hidden" id="fdrtGrpNm" name="fdrtGrpNm" value="" />
+                                                    </div>
+                                                    <div class="w_per10 pr4" id="bupper">
+                                                        <button type="button" id="btnupper" class="btnG" onclick="saveUpperUnionNm();">선택입력</button>
+                                                    </div>
+                                                    <div class="w_per30 pr4" id="d2fdrtGrpCd">
+                                                        <input type="text" id="fdrtGrpCdNm" name="fdrtGrpCdNm" size="10px" placeholder="총연합단체 입력" maxlength="50">
+                                                    </div>
+                                                    <div class="select w_per39 pl8 pr1" id="d1unonGrpCd">
+                                                        <select id="unonGrpCd" name="unonGrpCd" onFocus="this.initialSelect = this.selectedIndex;">
+                                                            <option value="">연합단체 선택</option>
+                                                            
+                                                            <option value="10001">공무원노동조합연맹</option>
+                                                            
+                                                            <option value="10002">교사노동조합연맹</option>
+                                                            
+                                                            <option value="10003">교육청노동조합연맹</option>
+                                                            
+                                                            <option value="10025">사회연대노동조합연맹</option>
+                                                            
+                                                            <option value="10004">전국IT사무서비스노동조합연맹</option>
+                                                            
+                                                            <option value="10005">전국고무산업노동조합연맹</option>
+                                                            
+                                                            <option value="10006">전국공공노동조합연맹</option>
+                                                            
+                                                            <option value="10007">전국공공산업노동조합연맹</option>
+                                                            
+                                                            <option value="10008">전국관광서비스노동조합연맹</option>
+                                                            
+                                                            <option value="10009">전국광산노동조합연맹</option>
+                                                            
+                                                            <option value="10010">전국금속노동조합연맹</option>
+                                                            
+                                                            <option value="10011">전국섬유유통노동조합연맹</option>
+                                                            
+                                                            <option value="10012">전국식품산업노동조합연맹</option>
+                                                            
+                                                            <option value="10013">전국연합노동조합연맹</option>
+                                                            
+                                                            <option value="10023">전국외국기업노동조합연맹</option>
+                                                            
+                                                            <option value="10014">전국의료산업노동조합연맹</option>
+                                                            
+                                                            <option value="10015">전국자동차노동조합연맹</option>
+                                                            
+                                                            <option value="10016">전국출판노동조합연맹</option>
+                                                            
+                                                            <option value="10017">전국택시노동조합연맹</option>
+                                                            
+                                                            <option value="10018">전국항공산업노동조합연맹</option>
+                                                            
+                                                            <option value="10019">전국항운노동조합연맹</option>
+                                                            
+                                                            <option value="10020">전국해상선원노동조합연맹</option>
+                                                            
+                                                            <option value="10021">전국화학노동조합연맹</option>
+                                                            
+                                                            <option value="10022">한국대학교노동조합연맹</option>
+                                                            
+                                                            <option value="10998">기타</option>
+                                                            
+                                                            <option value="10999">연합단체미가입</option>
+                                                            
+                                                            <option value="00">직접입력</option>
+                                                        </select>
+                                                        <input type="hidden" id="unonGrpNm" name="unonGrpNm" value= ""/>
+                                                    </div>
+                                                    <div class="w_per30 pr4" id="d2unonGrpCd">
+                                                        <input type="text" id="unonGrpCdNm" name="unonGrpCdNm" placeholder="연합단체 입력" maxlength="50">
+                                                    </div>
+                                                    <div class="select w_per41 pl6" id="d1lbrUniCd">
+                                                        <select id="lbrUniCd" name="lbrUniCd" onFocus="this.initialSelect = this.selectedIndex;">
+                                                            <option value="">단위노동조합 선택</option>
+                                                            
+                                                            <option value="100010003">강남구청통합공무원노동조합</option>
+                                                            
+                                                            <option value="100010004">강원도청공무원노동조합</option>
+                                                            
+                                                            <option value="100010005">경기도통합공무원노동조합</option>
+                                                            
+                                                            <option value="100010006">경북도청공무원노동조합</option>
+                                                            
+                                                            <option value="100010007">경상남도청공무원노동조합</option>
+                                                            
+                                                            <option value="100010008">경상북도교육청공무원노동조합</option>
+                                                            
+                                                            <option value="100010009">광양시공무원노동조합</option>
+                                                            
+                                                            <option value="100010010">대구공무원노동조합</option>
+                                                            
+                                                            <option value="100010011">대전광역시청공무원노동조합</option>
+                                                            
+                                                            <option value="100010012">목포시공무원노동조합</option>
+                                                            
+                                                            <option value="100010013">부산공무원노동조합</option>
+                                                            
+                                                            <option value="100010014">서울특별시공무원노동조합</option>
+                                                            
+                                                            <option value="100010031">서울특별시교육청공무원노동조합</option>
+                                                            
+                                                            <option value="100010015">서울특별시교육청일반직공무원노동조합</option>
+                                                            
+                                                            <option value="100010016">수원특례시민주공무원노동조합</option>
+                                                            
+                                                            <option value="100010017">울산광역시공무원노동조합</option>
+                                                            
+                                                            <option value="100010018">인천광역시교육청노동조합</option>
+                                                            
+                                                            <option value="100010019">전국소방안전공무원노동조합</option>
+                                                            
+                                                            <option value="100010020">전국시간선택제공무원노동조합</option>
+                                                            
+                                                            <option value="100010021">전국우체국노동조합</option>
+                                                            
+                                                            <option value="100010022">전국통합공무원노동조합</option>
+                                                            
+                                                            <option value="100010023">전남도청공무원노동조합</option>
+                                                            
+                                                            <option value="100010025">전북통합공무원노동조합</option>
+                                                            
+                                                            <option value="100010024">전북특별자치도공무원노동조합</option>
+                                                            
+                                                            <option value="100010026">전주시공무원노동조합</option>
+                                                            
+                                                            <option value="100010027">제주특별자치도공무원노동조합</option>
+                                                            
+                                                            <option value="100010028">창원특례시공무원노동조합</option>
+                                                            
+                                                            <option value="100010029">충청남도공무원노동조합</option>
+                                                            
+                                                            <option value="100010030">충청북도공무원노동조합</option>
+                                                            
+                                                            <option value="100019998">기타</option>
+                                                            
+                                                            <option value="100019999">없음</option>
+                                                            
+                                                            <option value="00">직접입력</option>
+                                                        </select>
+                                                        <input type="hidden" id="lbrUniNm2" name="lbrUniNm2" value= ""/>
+                                                   </div>
+                                                   <div class=" w_per30 pl4" id="d2lbrUniCd">
+                                                        <input type="text" id="lbrUniCdNm" name="lbrUniCdNm" placeholder="단위노동조합 입력" maxlength="50">
+                                                    </div>
+                                               </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="lbrUniRpsvNm" class="compulsory">대표자</label></th>
+                                            <td>
+                                                <input type="text" id="lbrUniRpsvNm" name="lbrUniRpsvNm" title="대표자" value="a" class="txt_l" maxlength="10">
+                                            </td>
+                                            <th><label for="lbrUniBplcRegNo">사업자등록번호<br>(고유번호증번호 등)</label></th>
+                                            <td>
+                                                <input type="text" id="lbrUniBplcRegNo" name="lbrUniBplcRegNo" value="" class="txt_l" maxlength="12">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="from">설립연월일</label></th>
+                                            <td>
+                                                <input type="text" id="from" name="fndnYmd" value="2024-08-15" class="txt_l" maxlength="10" readonly/>
+                                            </td>
+                                            <th><label for="accnBgngMonth">회계기간</label></th>
+                                            <td class="flexBox">
+                                                <input type="hidden" id="accnBgngMd" name="accnBgngMd" value="0401">
+                                                <input type="hidden" id="accnEndMd" name="accnEndMd" value="0408">
+                                                <div class="select w_per23 pr8">
+                                                    <select id="accnBgngMonth" name="accnBgngMonth" title="회계기간시작월">
+                                                        <option value="">월 선택</option>
+                                                        
+                                                            <option value="1">1 월</option>
+                                                        
+                                                            <option value="2">2 월</option>
+                                                        
+                                                            <option value="3">3 월</option>
+                                                        
+                                                            <option value="4">4 월</option>
+                                                        
+                                                            <option value="5">5 월</option>
+                                                        
+                                                            <option value="6">6 월</option>
+                                                        
+                                                            <option value="7">7 월</option>
+                                                        
+                                                            <option value="8">8 월</option>
+                                                        
+                                                            <option value="9">9 월</option>
+                                                        
+                                                            <option value="10">10 월</option>
+                                                        
+                                                            <option value="11">11 월</option>
+                                                        
+                                                            <option value="12">12 월</option>
+                                                        
+                                                    </select>
+                                                </div>
+                                                <div class="select w_per23 pr8">
+                                                    <select id="accnBgngDate" name="accnBgngDate" title="회계기간시작일">
+                                                    </select>
+                                                </div>
+                                                <span class="pr8 ineH_35">~</span>
+                                                <div class="select w_per23 pr8">
+                                                    <select id="accnEndMonth" name="accnEndMonth" title="회계기간종료월">
+                                                        <option value="">월 선택</option>
+                                                        
+                                                            <option value="1">1 월</option>
+                                                        
+                                                            <option value="2">2 월</option>
+                                                        
+                                                            <option value="3">3 월</option>
+                                                        
+                                                            <option value="4">4 월</option>
+                                                        
+                                                            <option value="5">5 월</option>
+                                                        
+                                                            <option value="6">6 월</option>
+                                                        
+                                                            <option value="7">7 월</option>
+                                                        
+                                                            <option value="8">8 월</option>
+                                                        
+                                                            <option value="9">9 월</option>
+                                                        
+                                                            <option value="10">10 월</option>
+                                                        
+                                                            <option value="11">11 월</option>
+                                                        
+                                                            <option value="12">12 월</option>
+                                                        
+                                                    </select>
+                                                </div>
+                                                <div class="select w_per23 pr8">
+                                                    <select id="accnEndDate" name="accnEndDate" title="회계기간종료일">
+                                                    </select>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="lbrUnstNope">조합원 수</label></th>
+                                            <td>
+                                                <input type="text" id="lbrUnstNope" name="lbrUnstNope" value="0" class="txt_r" maxlength="8">
+                                            </td>
+                                            <th><label for="picNm" class="compulsory">담당자명</label></th>
+                                            <td>
+                                                <input type="text" id="picNm" name="picNm" title="담당자명" value="a" class="txt_l" maxlength="50">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="wrdTelno" class="compulsory">유선연락처</label></th>
+                                            <td>
+                                                <input type="text" id="wrdTelno" name="wrdTelno" title="유선연락처" value="a" class="txt_l" maxlength="15">
+                                            </td>
+                                            <th><label for="picEmlAddr" class="compulsory">담당자명 이메일</label></th>
+                                            <td>
+                                                <input type="text" id="picEmlAddr" name="picEmlAddr" title="담당자명 이메일" value="a" class="txt_l" maxlength="50">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="clrTelno">휴대폰</label></th>
+                                            <td>
+                                                <input type="text" id="clrTelno" name="clrTelno" title="휴대폰" value="" class="txt_l" maxlength="15">
+                                            </td>
+                                            <th><label for="rcvAgrYn">수신동의 여부</label></th>
+                                            <td>
+                                                <input type="radio" class="rcvAgrYn" name="rcvAgrYn" value="Y" >동의
+                                                <input type="radio" class="rcvAgrYn" name="rcvAgrYn" value="N" checked>거부
+                                               </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="lctnAddr">소재지</label></th>
+                                            <td colspan="3">
+                                                <input type="text" id="lctnAddr" name="lctnAddr" value="" class="txt_l" maxlength="100">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="accnPbanBsisDiv" style="display: none;">
+                            <h2 class="dataTitle">하반기 공시 등 근거자료</h2>
+                            <div class="table horizontal mb20">
+                                <table id="accnPbanBsisInfo">
+                                    <caption>회계공시 근거자료(공시사유구분, 근거자료파일) 입력폼</caption>
+                                    <colgroup>
+                                        <col width="15%" />
+                                        <col />
+                                        <col width="15%" />
+                                        <col />
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th><label>공시사유구분</label></th>
+                                            <td colspan="3" class="ineH_35">
+                                                <input type="hidden" id="lbrUniFyr1" name="lbrUniFyr" value="" />
+                                                <input type="hidden" id="resnSeCd1" name="resnSeCd" value="" />
+                                                <input type="hidden" id="aprvYn" name="aprvYn" value="" />
+                                                
+                                                    
+                                                    
+                                                    
+                                                    
+                                                
+                                            </td>
+                                        </tr>
+                                         <tr>
+                                            <th><label for="" class="compulsory">근거파일첨부<span class="blind">필수항목입니다.</span></label></th>
+                                            <td colspan="3">
+                                                <div id="fileBtnDiv" style="display: none;">
+                                                    <input type="hidden" id="atchFileId" name="atchFileId" value=""/>
+                                                    <a onclick="fn_fileDown()"></a>
+                                                    &nbsp;&nbsp;
+                                                    <button type="button">
+                                                        <img src="/pap/common/images/sub/iconFile.png" 
+                                                            alt="파일다운 아이콘" onclick="fn_fileDown();">
+                                                    </button>
+                                                    &nbsp;&nbsp;
+                                                    <button type="button" id="fileDelBtn">
+                                                        <img src="/pap/common/images/sub/iconFileDelete.png" 
+                                                            alt="파일삭제 아이콘" onclick="fn_fileDelete();">
+                                                    </button>
+                                                </div>
+                                                <div id="fileAtchDiv" style="display: none;">
+                                                    <input type="file" id="atchFile" name="atchFile" class="ml0 pr20" title="근거파일첨부" value="">
+                                                    <img src="/pap/common/images/sub/iconFileBtn.png" class="ml7 mt5" alt="파일찾기 아이콘">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+                            <div class="buttonRow">
+                                <button type="button" class="btnB pl10 pr10" onclick="fn_save_lbrUniBase();">저장</button>
+                                <button type="button" class="btnB pl10 pr10" onclick="fn_next();">다음</button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <form id="frmMain" name="frmMain" action="post">
+                        <input type="hidden" id="regYn" name="regYn" value="N" />
+                        <input type="hidden" id="frstAnncYn" name="frstAnncYn" value="N" />
+                        <input type="hidden" id="resnSeCd" name="resnSeCd" value="" />
+                        <input type="hidden" id="prevFrstAnncYn" name="prevFrstAnncYn" value="" />
+                        <input type="hidden" id="prevResnSeCd" name="prevResnSeCd" value="" />
+                        <div class="tabContent tabContent2" id="accnPbanCont">
+                            <h2 class="dataTitle">공시정보</h2>
+                            <div class="table horizontal tdLine mb27">
+                                <table class="miw_1280">
+                                    <caption>공시정보{회계기간시작일, 회계기간종료일} 입력폼</caption>
+                                    <colgroup>
+                                        <col width="190px" />
+                                        <col />
+                                        <col width="190px" />
+                                        <col />
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th><label for="lbrUniFyr" class="compulsory">회계연도<span class="blind">필수항목입니다.</span></label></th>
+                                             <td class="select">
+                                                
+                                                
+                                                <select id="lbrUniFyr" name="lbrUniFyr">
+                                                    
+                                                        <option value="2023">2023</option>
+                                                    
+                                                </select>
+                                            </td>
+                                            <th><label for="accnBgngYmd" class="compulsory">회계기간<span class="blind">필수항목입니다.</span></label></th>
+                                            <td>
+                                                <input type="text" id="accnBgngYmd" name="accnBgngYmd" maxlength="10" title="회계기간시작일" value="" style="width:auto;" readonly>
+                                                <span class="pl8 pr8 ineH_35">~</span>
+                                                <input type="text" id="accnEndYmd" name="accnEndYmd" maxlength="10" title="회계기간종료일" value="" style="width:auto;" readonly>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <h2 class="dataTitle">자산 및 부채현황
+                                <div class="btnTootip">
+                                    <p class="tooltip">
+                                      <span class="list"> 가.</span> 자산부터 부채까지는 회계연도 종료일 현재 노동조합 또는 산하조직의 자산 및 부채가액을 일반회계, 특별회계, 보조금사업회계, 수익사업회계로 구분하여 입력합니다.<br>
+                                      <span class="list2">
+                                        <span>※</span> 일반회계는 조합비, 상급단체 교부금, 하부조직 부과금 등으로 운영하는 회계를 말합니다.<br>
+                                         <span>※</span> 특별회계는 정기예금 등 적립금 회계, 기금회계(예:쟁의기금), 일반적인 조합비 외의 특별 조합비 등 일반회계와 별도로 운영하는 회계를 말합니다.<br>
+                                          <span>※</span> 보조금사업회계는 국가 및 지방자치단체 또는 공공기관 등과 같은 보조사업자로부터 받은 보조금을 재원으로 하는 사업의 회계를 말합니다.<br>
+                                          <span>※</span> 수익사업회계는 임대사업, 영리시설 운영사업 등 법인세 납세의무가 있는 사업의 회계를 말합니다.<br></span>
+                                      <span class="list">나.</span> 자산이란 현금, 단기예금, 장기예금, 임차보증금, 토지, 건물 등 과거의 거래나 사건의 결과로 회계연도 종료일 현재 노동조합 또는 산하조직에 의해 지배되고 미래에 경제적 효익을 창출할 것으로 예상되는 자원을 말합니다.<br>
+                                      <span class="list">다.</span> 현금 및 예금은 노동조합 또는 산하조직이 보유하고 있는 현금 및 현금성자산(보통예금, 당좌예금, 취득 시 만기가 3개월인 금융상품 등)과 금융기관 등에 예치하고 있는 정기예금의 가액을 입력합니다. 정기예금 등에서 발생한 미수이자는 현금 및 예금이 아닌 기타자산에 입력합니다.<br>
+                                      <span class="list">라.</span> 기타자산은 노동조합 또는 산하조직이 가지고 있는 정기적금, 펀드상품, 저축성 보험상품 등 기타 금융자산과 조합비 미수금, 매출채권, 미수이자, 미수임대료, 선급금 등 현금 및 예금부터 건물까지에 해당하지 않는 자산을 입력합니다.<br>
+                                      <span class="list">마.</span> 부채는 미지급금, 임대보증금, 예수금, 퇴직급여충당부채 등 과거의 거래나 사건의 결과로 회계연도 종료일 현재 노동조합 또는 산하조직이 부담하고 있고 미래에 자원이 유출되거나 사용될 것으로 예상되는 의무를 말합니다.<br>
+                                    </p>
+                                </div>
+                                <span class="unit">(단위 : 원)</span>
+                            </h2>
+                            <div class="table horizontal tdLine mb27">
+                                <table class="miw_1280">
+                                    <caption>자산 및 부채현황{구분, 자산(현금및예금, 토지, 건물, 기타자산), 부채} 입력폼</caption>
+                                    <colgroup>
+                                        <col width="190px" />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                    </colgroup>
+                                    <thead>
+                                        <tr class="thDepth">
+                                            <th>구분</th>
+                                            <th class="bor_R0">자산</th>
+                                            <th class="bor_R0"><p>현금및예금</p></th>
+                                            <th class="bor_R0"><p>토지</p></th>
+                                            <th class="bor_R0"><p>건물</p></th>
+                                            <th><p class="bor_R0">기타자산</p></th>
+                                            <th>부채</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="style">
+                                            <th><label for="asetAllAmt">ⓐ 총계(=ⓑ+ⓒ+ⓓ+ⓔ )</label></th>
+                                            <td><input type="text" id="asetAllAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="asetCashAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="asetLandAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="asetBldgAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="asetEtcAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="asetDebtAmt" class="txt_r" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="asetGnrlAmt">ⓑ 일반회계</label></th>
+                                            <td><input type="text" id="asetGnrlAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="asetCashAmt01" name="asetCashAmt01" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetLandAmt01" name="asetLandAmt01" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetBldgAmt01" name="asetBldgAmt01" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetEtcAmt01"  name="asetEtcAmt01"  value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetDebtAmt01" name="asetDebtAmt01" value="0" class="txt_r num" maxlength="11"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="asetSpecAmt">ⓒ 특별회계</label></th>
+                                            <td><input type="text" id="asetSpecAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="asetCashAmt02" name="asetCashAmt02" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetLandAmt02" name="asetLandAmt02" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetBldgAmt02" name="asetBldgAmt02" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetEtcAmt02"  name="asetEtcAmt02"  value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetDebtAmt02" name="asetDebtAmt02" value="0" class="txt_r num" maxlength="11"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="asetAsstBizAmt">ⓓ 보조금사업회계</label></th>
+                                            <td><input type="text" id="asetAsstBizAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="asetCashAmt03" name="asetCashAmt03" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetLandAmt03" name="asetLandAmt03" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetBldgAmt03" name="asetBldgAmt03" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetEtcAmt03"  name="asetEtcAmt03"  value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetDebtAmt03" name="asetDebtAmt03" value="0" class="txt_r num" maxlength="11"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="asetErnsBizAmt">ⓔ수익사업회계</label></th>
+                                            <td><input type="text" id="asetErnsBizAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="asetCashAmt04" name="asetCashAmt04" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetLandAmt04" name="asetLandAmt04" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetBldgAmt04" name="asetBldgAmt04" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetEtcAmt04"  name="asetEtcAmt04"  value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="asetDebtAmt04" name="asetDebtAmt04" value="0" class="txt_r num" maxlength="11"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <h2 class="dataTitle">수입현황
+                                <div class="btnTootip">
+                                    <p class="tooltip">
+                                        <span class="list">가.</span> 전년도 이월금은 회계별로 전기 말 현금 및 예금의 잔액을 입력합니다.<br>
+                                        <span class="list">나.</span> 조합비는 규약에 따라 조합원이 단위노동조합 또는 산하조직에 직접 납부한 조합비 명목의 금액을 입력합니다.<br>
+                                        <span class="list">다.</span> 상급단체 교부금은 산하조직이 단위노동조합 등으로부터 받은 교부금, 단위노동조합이 연합단체 등으로부터 받은 교부금 명목의 금액을 상급단체로부터 받은 교부금 등을 입력합니다.<br>
+                                        <span class="list">라.</span> 하부조직 부과금은 단위노동조합이 산하조직 등으로부터 받은 부과금, 연합단체가 단위노동조합 등으로부터 받은 부과금 등 가맹조직, 산하조직 등으로부터 받은 부과금(예: 가맹비, 의무금)을 입력합니다.<br>
+                                        <span class="list">마.</span> 후원금은 조합원이 아닌 개인, 단체 등으로 부터 받은 후원금 명목의 금액을 입력합니다.<br>
+                                        <span class="list">바.</span> 타회계 전입금은 일반회계와 특별회계 등 간의 전입으로 인한 수입 금액을 입력하며, 지출현황의 타회계 전출금 지출금액과 일치해야 합니다.<br>
+                                        <span class="list">사.</span> 보조금 수입은 국가 및 지방자치단체 또는 공공기관 등과 같은 보조사업자로부터 받은 보조금 수입 명목의 금액을 입력합니다.<br>
+                                        <span class="list">아.</span> 수익사업 수입은 임대사업, 영리시설 운영사업 등 법인세 납세의무가 있는 수익사업 수입 총액을 입력합니다.<br>
+                                        <span class="list">자.</span> 기타는 조합비부터 수익사업수입까지에 해당하지 않는 수입을 입력합니다.<br>
+                                    </p>
+                                </div>
+                                <span class="unit">(단위 : 원)</span>
+                            </h2>
+                            <div class="table horizontal tdLine mb27">
+                                <table class="miw_1680"> <!-- 1280 -->
+                                    <caption>수입현황{구분, 수입총계, 전년도 이월금, 당기수입(조합비, 상금단체 교부금, 하부조직 부과금, 후원금, 타회계 전입금, 보조금 수입, 수익사업 수입, 기타)} 입력폼</caption>
+                                    <colgroup>
+                                        <col width="190px" />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col width="10.5%" />
+                                        <col width="10.5%" />
+                                        <col width="10.5%" />
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2">구분</th>
+                                            <th rowspan="2">수입총계</th>
+                                            <th rowspan="2">전년도 이월금</th>
+                                            <th colspan="8">당기수입</th>
+                                        </tr>
+                                        <tr>
+                                            <th>조합비</th>
+                                            <th>상급단체 교부금</th>
+                                            <th>하부조직 부과금</th>
+                                            <th>후원금</th>
+                                            <th>타회계 전입금</th>
+                                            <th>보조금 수입</th>
+                                            <th>수익사업 수입</th>
+                                            <th>기타</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="style">
+                                            <th><label for="ernAllAmt">ⓐ 총계(=ⓑ+ⓒ+ⓓ+ⓔ )</label></th>
+                                            <td><input type="text" id="ernAllAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="ernPvyrCyfdAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="ernUnduAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="ernUclsGrpDtbnAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="ernSsdrOgnzLevyAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="ernSprtAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="ernDfrcAccnMvinAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="ernAsstAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="ernBizAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="ernEtcAmt" class="txt_r" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="ernGnrlAmt">ⓑ 일반회계</label></th>
+                                            <td><input type="text" id="ernGnrlAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="ernPvyrCyfdAmt01"     name="ernPvyrCyfdAmt01"     value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernUnduAmt01"         name="ernUnduAmt01"         value="0" class="txt_r num" maxlength="11"></td>      
+                                            <td><input type="text" id="ernUclsGrpDtbnAmt01"  name="ernUclsGrpDtbnAmt01"  value="0" class="txt_r num" maxlength="11"></td>         
+                                            <td><input type="text" id="ernSsdrOgnzLevyAmt01" name="ernSsdrOgnzLevyAmt01" value="0" class="txt_r num" maxlength="11"></td>      
+                                            <td><input type="text" id="ernSprtAmt01"         name="ernSprtAmt01"         value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernDfrcAccnMvinAmt01" name="ernDfrcAccnMvinAmt01" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernAsstAmt01"         name="ernAsstAmt01"         value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernBizAmt01"          name="ernBizAmt01"          value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernEtcAmt01"          name="ernEtcAmt01"          value="0" class="txt_r num" maxlength="11"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="ernSpecAmt">ⓒ 특별회계</label></th>
+                                            <td><input type="text" id="ernSpecAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="ernPvyrCyfdAmt02"     name="ernPvyrCyfdAmt02"     value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernUnduAmt02"         name="ernUnduAmt02"         value="0" class="txt_r num" maxlength="11"></td>         
+                                            <td><input type="text" id="ernUclsGrpDtbnAmt02"  name="ernUclsGrpDtbnAmt02"  value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernSsdrOgnzLevyAmt02" name="ernSsdrOgnzLevyAmt02" value="0" class="txt_r num" maxlength="11"></td>         
+                                            <td><input type="text" id="ernSprtAmt02"         name="ernSprtAmt02"         value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernDfrcAccnMvinAmt02" name="ernDfrcAccnMvinAmt02" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernAsstAmt02"         name="ernAsstAmt02"         value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernBizAmt02"          name="ernBizAmt02"          value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernEtcAmt02"          name="ernEtcAmt02"          value="0" class="txt_r num" maxlength="11"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="ernAsstBizAmt">ⓓ 보조금사업회계</label></th>
+                                            <td><input type="text" id="ernAsstBizAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="ernPvyrCyfdAmt03"     name="ernPvyrCyfdAmt03"     value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernUnduAmt03"         name="ernUnduAmt03"         value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernUclsGrpDtbnAmt03"  name="ernUclsGrpDtbnAmt03"  value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernSsdrOgnzLevyAmt03" name="ernSsdrOgnzLevyAmt03" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernSprtAmt03"         name="ernSprtAmt03"         value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernDfrcAccnMvinAmt03" name="ernDfrcAccnMvinAmt03" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernAsstAmt03"         name="ernAsstAmt03"         value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernBizAmt03"          name="ernBizAmt03"          value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernEtcAmt03"          name="ernEtcAmt03"          value="0" class="txt_r num" maxlength="11"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="ernErnsBizAmt">ⓔ수익사업회계</label></th>
+                                            <td><input type="text" id="ernErnsBizAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="ernPvyrCyfdAmt04"     name="ernPvyrCyfdAmt04"     value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernUnduAmt04"         name="ernUnduAmt04"         value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernUclsGrpDtbnAmt04"  name="ernUclsGrpDtbnAmt04"  value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernSsdrOgnzLevyAmt04" name="ernSsdrOgnzLevyAmt04" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernSprtAmt04"         name="ernSprtAmt04"         value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernDfrcAccnMvinAmt04" name="ernDfrcAccnMvinAmt04" value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernAsstAmt04"         name="ernAsstAmt04"         value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernBizAmt04"          name="ernBizAmt04"          value="0" class="txt_r num" maxlength="11"></td>
+                                            <td><input type="text" id="ernEtcAmt04"          name="ernEtcAmt04"          value="0" class="txt_r num" maxlength="11"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <h2 class="dataTitle">지출현황
+                                <div class="btnTootip">
+                                    <p class="tooltip">
+                                         <span class="list">가.</span> 일반관리비용은 사무국 조직 운영과 관련한 비용을 말하고, 사업수행비용은 노동조합 고유의 활동 또는 사업과 관련된 비용을 말합니다.<br>
+                                         <span class="list">나.</span> 인건비는 임직원 급여, 수당, 퇴직금, 사회보험료, 복리후생비 등 인력 운영과정에서 발생하는 비용을 입력합니다.<br>
+                                         <span class="list">다.</span> 업무추진비는 임원 및 직원의 직급 및 직책 등에 따라 정액으로 지급하는 경비, 업무협의 등 대외적인 각종 행사 및 직무수행에 사용되는 경비 등 사무국의 업무 추진과정에서 발생하는 비용을 입력합니다.<br>
+                                         <span class="list">라.</span> 기타운영비는 인건비 및 업무추진비 외에 여비, 교통비, 통신비, 인쇄비, 사무용품비, 지급수수료 등 사무국 조직 운영과정에서 발생하는 비용을 입력합니다.<br>
+                <!-- 					     <span class="list">마.</span> 회의비는 총회비, 대의원회의비, 임원회의비, 간담회 등 회의 운영과정에서 발생하는 비용을 입력합니다.<br> -->
+                <!-- 					     <span class="list">바.</span> 사업비는 단체교섭, 쟁의행위, 조합원 복리후생, 교육 및 훈련, 홍보, 소모임 활동 지원 등 조직 활동과정에서 발생하는 비용을 입력합니다.<br> -->
+                                         <span class="list">마.</span> 총회 등 대회비는 총회, 대의원회, 집행위원회 등 회의 개최에 소요되는 비용을 입력합니다.<br>
+                                         <span class="list">바.</span> 조직사업비는 신규 조합원의 가입, 지부·분회 등 산하조직 신설, 확대, 변경 등의 조직사업에 소요되는 비용을 입력합니다.<br>
+                                         <span class="list">사.</span> 정책사업비는 조합원의 근로조건 개선 및 노동 3권 보장을 위한 정책 의제 개발, 제도개선 연구 등 노동조합의 정책활동에 소요되는 비용을 입력합니다.<br>
+                                         <span class="list">아.</span> 교육·홍보사업비는 신규 조합원의 교육, 간부 교육 등 교육사업과 영상·홍보물 게시, 유인물 부착 등 홍보사업에 소요되는 비용을 입력합니다.<br>
+                                         <span class="list">자.</span> 교섭·쟁의사업비는 근로조건 개선 등을 위한 교섭, 쟁의, 집회 등에 소요되는 비용 및 쟁의과정에서 발생하는 각종 부대비용 및 지원금 등의 비용을 입력합니다.<br>
+                                         <span class="list">차.</span> 기타사업비는 사업비 중 총회 등 대회비, 조직사업비, 정책사업비, 교육홍보사업비, 교섭·쟁의사업비에 해당하지 않는 비용을 입력합니다.<br>
+                                         <span class="list">카.</span> 상급단체 부과금은 산하조직이 단위노동조합 등에 납부하는 부과금, 단위노동조합이 연합단체 등에 납부하는 부과금 등 상급단체에 납부한 부과금(예: 가맹비, 의무금) 명목의 금액을 입력합니다.<br>
+                                         <span class="list">타.</span> 하부조직 교부금은 단위노동조합이 산하조직 등에 배분하는 교부금, 연합단체가 단위노동조합 등에 배분하는 교부금 등 하부조직에 배분하는 교부금 명목의 금액을 입력합니다.<br>
+                                         <span class="list">파.</span> 타회계 전출금은 일반회계와 특별회계 등 간의 전출로 인한 지출 금액을 입력하며, 수입현황의 타회계 전입금 수입금액과 일치해야 합니다.<br>
+                                         <span class="list">하.</span> 기타는 일반관리비용부터 타회계 전출금까지에 해당하지 않는 지출을 입력합니다.<br>
+                                         <span class="list">거.</span> 차년도 이월금은 수입총계에서 당기지출을 차감한 금액을 입력합니다.<br>
+                                    </p>
+                                </div>
+                                <span class="unit">(단위 : 원)</span>
+                            </h2>
+                            <div class="table horizontal tdLine mb27">
+                                <table class="w_px2080"><!-- <table class="w_px1280"> 1580-->
+                                    <caption>지출현황[구분, 지출총계, 당기지출{일반관리비용(인건비, 업무추진비, 기타운영비), 사업수행비용(총회 등 대회비, 조직사업비, 정책사업비, 교육·홍보사업비, 교섭·쟁의사업비, 기타사업비), 상급단체부과금, 하부조직교부금, 타회계전출금, 기타}, 차년도 이월금] 입력폼</caption>
+                                    <colgroup>
+                                        <col width="190px"/>
+                                        <col />
+                                        <col />
+                                        <col />
+                                        
+                                        
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="3">구분</th>
+                                            <th rowspan="3">지출총계</th>
+                                            <th colspan="13">당기지출</th>
+                                            <th rowspan="3">차년도<br>이월금</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3">일반관리비용</th>
+                                            <th colspan="6">사업수행비용</th>
+                                            <th rowspan="2">상급단체<br>부과금</th>
+                                            <th rowspan="2">하부조직<br>교부금</th>
+                                            <th rowspan="2">타회계<br>전출금</th>
+                                            <th rowspan="2">기타</th>
+                                        </tr>
+                                        <tr>
+                                            <th>인건비</th>
+                                            <th>업무추진비</th>
+                                            <th>기타운영비</th>
+                                            
+                                            <th>총회 등 대회비</th>
+                                            <th>조직사업비</th>
+                                            <th>정책사업비</th>
+                                            <th>교육·홍보<br>사업비</th>
+                                            <th>교섭·쟁의<br>사업비</th>
+                                            <th>기타사업비</th>
+                <!-- 							<th>회의비</th> -->
+                <!-- 							<th>사업비</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="style">
+                                            <th><label for="expAllAmt">ⓐ 총계(=ⓑ+ⓒ+ⓓ+ⓔ )</label></th>
+                                            <td><input type="text" id="expAllAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expLbcoAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expTaskPrplAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expEtcOpxpAmt" class="txt_r" readonly></td>
+                                            
+                                            <td><input type="text" id="expGnmtAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expOgnzPjtcAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expPlcPjtcAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expEduAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expDsptPjtcAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expEtcPjtcAmt" class="txt_r" readonly></td>
+                
+                
+                                            <td><input type="text" id="expUclsGrpLevyAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expSsdrOgnzDtbnAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expDfrcAccnTrsmAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expEtcAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expNxyrCyfdAmt" class="txt_r" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="expGnrlAmt">ⓑ 일반회계</label></th>
+                                            <td><input type="text" id="expGnrlAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expLbcoAmt01"         name="expLbcoAmt01"         value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expTaskPrplAmt01"     name="expTaskPrplAmt01"     value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEtcOpxpAmt01"      name="expEtcOpxpAmt01"      value="0" class="txt_r num" maxlength="12"></td>
+                
+                                            <td><input type="text" id="expGnmtAmt01"         name="expGnmtAmt01"          value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expOgnzPjtcAmt01"     name="expOgnzPjtcAmt01"      value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expPlcPjtcAmt01"      name="expPlcPjtcAmt01"       value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEduAmt01"          name="expEduAmt01"           value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expDsptPjtcAmt01"     name="expDsptPjtcAmt01"      value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEtcPjtcAmt01"      name="expEtcPjtcAmt01"       value="0" class="txt_r num" maxlength="12"></td>
+                
+                                            <td><input type="text" id="expUclsGrpLevyAmt01"  name="expUclsGrpLevyAmt01"  value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expSsdrOgnzDtbnAmt01" name="expSsdrOgnzDtbnAmt01" value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expDfrcAccnTrsmAmt01" name="expDfrcAccnTrsmAmt01" value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEtcAmt01"          name="expEtcAmt01"          value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expNxyrCyfdAmt01"     name="expNxyrCyfdAmt01"     value="0" class="txt_r num" maxlength="12"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="expSpecAmt">ⓒ 특별회계</label></th>
+                                            <td><input type="text" id="expSpecAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expLbcoAmt02"         name="expLbcoAmt02"         value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expTaskPrplAmt02"     name="expTaskPrplAmt02"     value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEtcOpxpAmt02"      name="expEtcOpxpAmt02"      value="0" class="txt_r num" maxlength="12"></td>
+                
+                                            <td><input type="text" id="expGnmtAmt02"         name="expGnmtAmt02"          value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expOgnzPjtcAmt02"     name="expOgnzPjtcAmt02"      value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expPlcPjtcAmt02"      name="expPlcPjtcAmt02"       value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEduAmt02"          name="expEduAmt02"           value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expDsptPjtcAmt02"     name="expDsptPjtcAmt02"      value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEtcPjtcAmt02"      name="expEtcPjtcAmt02"       value="0" class="txt_r num" maxlength="12"></td>
+                
+                                            <td><input type="text" id="expUclsGrpLevyAmt02"  name="expUclsGrpLevyAmt02"  value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expSsdrOgnzDtbnAmt02" name="expSsdrOgnzDtbnAmt02" value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expDfrcAccnTrsmAmt02" name="expDfrcAccnTrsmAmt02" value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEtcAmt02"          name="expEtcAmt02"          value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expNxyrCyfdAmt02"     name="expNxyrCyfdAmt02"     value="0" class="txt_r num" maxlength="12"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="expAsstBizAmt">ⓓ 보조금사업회계</label></th>
+                                            <td><input type="text" id="expAsstBizAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expLbcoAmt03"         name="expLbcoAmt03"         value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expTaskPrplAmt03"     name="expTaskPrplAmt03"     value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEtcOpxpAmt03"      name="expEtcOpxpAmt03"      value="0" class="txt_r num" maxlength="12"></td>
+                
+                                            <td><input type="text" id="expGnmtAmt03"         name="expGnmtAmt03"          value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expOgnzPjtcAmt03"     name="expOgnzPjtcAmt03"      value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expPlcPjtcAmt03"      name="expPlcPjtcAmt03"       value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEduAmt03"          name="expEduAmt03"           value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expDsptPjtcAmt03"     name="expDsptPjtcAmt03"      value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEtcPjtcAmt03"      name="expEtcPjtcAmt03"       value="0" class="txt_r num" maxlength="12"></td>
+                
+                                            <td><input type="text" id="expUclsGrpLevyAmt03"  name="expUclsGrpLevyAmt03"  value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expSsdrOgnzDtbnAmt03" name="expSsdrOgnzDtbnAmt03" value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expDfrcAccnTrsmAmt03" name="expDfrcAccnTrsmAmt03" value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEtcAmt03"          name="expEtcAmt03"          value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expNxyrCyfdAmt03"     name="expNxyrCyfdAmt03"     value="0" class="txt_r num" maxlength="12"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="expExpsBizAmt">ⓔ수익사업회계</label></th>
+                                            <td><input type="text" id="expExpsBizAmt" class="txt_r" readonly></td>
+                                            <td><input type="text" id="expLbcoAmt04"         name="expLbcoAmt04"         value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expTaskPrplAmt04"     name="expTaskPrplAmt04"     value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEtcOpxpAmt04"      name="expEtcOpxpAmt04"      value="0" class="txt_r num" maxlength="12"></td>
+                
+                                            <td><input type="text" id="expGnmtAmt04"         name="expGnmtAmt04"          value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expOgnzPjtcAmt04"     name="expOgnzPjtcAmt04"      value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expPlcPjtcAmt04"      name="expPlcPjtcAmt04"       value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEduAmt04"          name="expEduAmt04"           value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expDsptPjtcAmt04"     name="expDsptPjtcAmt04"      value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEtcPjtcAmt04"      name="expEtcPjtcAmt04"       value="0" class="txt_r num" maxlength="12"></td>
+                
+                                            <td><input type="text" id="expUclsGrpLevyAmt04"  name="expUclsGrpLevyAmt04"  value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expSsdrOgnzDtbnAmt04" name="expSsdrOgnzDtbnAmt04" value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expDfrcAccnTrsmAmt04" name="expDfrcAccnTrsmAmt04" value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expEtcAmt04"          name="expEtcAmt04"          value="0" class="txt_r num" maxlength="12"></td>
+                                            <td><input type="text" id="expNxyrCyfdAmt04"     name="expNxyrCyfdAmt04"     value="0" class="txt_r num" maxlength="12"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table horizontal tdLine mb27">
+                                <table>
+                                    <colgroup>
+                                        <col width="15%" />
+                                        <col width="85%" />
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td><label>주석</label></td>
+                                            <td><input type="text" id="anntCn" name="anntCn" class="txt_f" maxlength="1000" title="주석" value=""></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="buttonRow">
+        
+                                <button id="imsiSave" type="button" class="btnBk" onclick="fn_imsisave();">임시저장</button>
+        
+                                <button id="save" type="button" class="btnBk" onclick="fn_save();">제출</button>
+                                <button type="button" class="btnB pl10 pr10" onclick="fn_moveAfogMng();">가맹노조(산하조직)관리</button>
+                                <button id="excelDownBtn" type="button" class="btnB pl7 pr7">엑셀 다운로드</button>
+                                <!-- 2024년 2월 1일 손창호   저장버튼 추가  -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Loading page -->
+            <div class="loading" id="loading" style="display: none;"><p><span class="dot"></span></p><p>Load<span></span>ng</p></div>
+            <!-- // Loading page -->
+        </body>
+        <div class="gnb__bg"></div>
+    </body>
+</html>
