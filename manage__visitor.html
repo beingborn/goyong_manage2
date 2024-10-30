@@ -43,21 +43,21 @@
                                 </ol>
                             </nav>
                             <!-- ./ breadcrumb -->
+                            <!-- buttonRow -->
+                            <div class="txt_r mb20">
+                                <button type="button" class="btnG" onclick="fn_reset();">초기화</button>
+                                <button type="button" class="btnB" onclick="fn_save();">조회</button>
+                                <button type="button" class="btnBk" onclick="fn_save();">다운로드</button>
+                            </div>
+                            <!-- ./ buttonRow -->
                             <div class="flexBox mb10">
                                 <!-- tab -->
-                                <div class="tabBtns clear w_px360">
+                                <div class="tabBtns clear w_px450 borderB-db">
                                     <h2 class="w_per33"><button type="button" class="active">일별</button></h2>
                                     <h2 class="w_per33" id="accnPbanTab"><button type="button" class="line">월별</button></h2>
                                     <h2 class="w_per33"><button type="button" class="line">연도별</button></h2>
                                 </div>
                                 <!-- ./ tab -->
-                                <!-- buttonRow -->
-                                <div class="flexItem_r">
-                                    <button type="button" class="btnG" onclick="fn_reset();">초기화</button>
-                                    <button type="button" class="btnB" onclick="fn_save();">조회</button>
-                                    <button type="button" class="btnBk" onclick="fn_save();">다운로드</button>
-                                </div>
-                                <!-- ./ buttonRow -->
                             </div>
                             <!-- 탭 콘텐츠 1 (일별 통계) -->
                             <div class="tabContent">

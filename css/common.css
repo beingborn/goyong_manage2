@@ -122,6 +122,11 @@ table tr.style1 > td{background: #cee9fd !important;}
 .tabBtns button.line{border-left:1px solid #dbdbdb;border-right:1px solid #dbdbdb;}
 .tabContent{display:none;border-top:none;}
 
+/* Tab border / 2024/10/29 이민혁 / 방문자 통계 탭 버튼 스타일 형성 */
+.borderB-db {border-bottom: 2px solid #dbdbdb!important;}
+
+
+
 /* Chart style */
 .chartBox{background:#F8F8F8;border-top:2px solid #505050;border-bottom:1px solid #E5E5E5;padding:2rem;}
 strong{color:#004a98;}
