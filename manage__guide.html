@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <script type="text/javascript">
+            var contextPath = "/pap";
+        </script>
+        <link rel="stylesheet" href="css/layout.css">
+        <link rel="stylesheet" href="css/common.css">
+        <!-- <link rel="shortcut icon" href="/pap/common/images/common/favicon.ico"> -->
+        <script src="js/chart.min.js"></script>
+        <script src="js/chartjs-plugin-datalabels.js"></script>
+        <script src="js/jquery-3.7.0.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/lpap.js"></script>
+    </head>
+    <body>
+        <div id="body">
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <title>노동조합 회계공시시스템</title>
+                    <link rel="stylesheet" href="css/jquery-ui.min.css">
+                    <link rel="stylesheet" href="css/style.css">
+                </head>
+                <body>
+
+                    <p class="inner" style="font-size: 15px; margin-top: 40px;">
+                        색상별로 액티브 배경색상을 조정할 수 있게 제작했습니다.
+                        <br>
+                        클래스명은 
+                        <em style="color: blue; font-weight: 700;">can-access-navy, can-access-bk, can-access-Ld, can-access-Gr</em>입니다.
+                        <br>
+                        각 태그에 클래스로 추가하시면 
+                        배경색이 변경됩니다. 
+                        <br>
+                        <span style="color: blue; font-weight: 700;">ex) class=org-link can-access-navy</span>
+                        <br>
+                        원하시는 색상의 클래스를 사용하시면 됩니다.
+                    </p>
+
+
+                    <div id="contents">
+                        <div class="conBody inner">
+                            <!-- 관리자 메인 조직도 -->
+                            <div class="manage-main">
+                                <div class="manage-org">
+                                    <!-- 관리자 메인 클릭 가능한 버튼 그룹 -->
+                                    <div class="manage-org-wrap">
+                                        <div class="manage-org-linkGroup row-one">
+                                            <!-- 권한 있을 시 a태그 없을 시 label 태그 -->
+                                            <!-- <a href="#" class="org-link" title="회계공시 대상 기준 설정"></a> -->
+                                            <label class="org-link" title="회계공시 대상 기준 설정"></label>
+                                        </div>
+
+                                        <!-- org-link 옆에 can-access-{색상} 클래스를 부착 시 액티브 가능한 버튼의 배경색상이 변경됩니다. -->
+                                        <div class="manage-org-linkGroup row-two">
+                                            <a href="#" class="org-link can-access-navy" title="노동조합 및 조직체계 관리"></a>
+                                        </div>
+
+                                        <div class="manage-org-linkGroup row-three">
+                                            <a href="#" class="org-link can-access-navy" title="회계공시 대상 노동조합 생성"></a>
+                                            <a href="#" class="org-link can-access-navy" title="제외 대상자 관리"></a>
+                                        </div>
+
+                                        <div class="manage-org-linkGroup row-four">
+                                            <a href="#" class="org-link can-access-navy" title="상반기 공시 입력 기간 등록"></a>
+                                            <a href="#" class="org-link can-access-navy" title="공시대상 검증"></a>
+                                        </div>
+
+                                        <!-- second-col 클래스 부착 시 지방관서 관리자 행으로 가로 위치값 이동 -->
+                                        <div class="manage-org-linkGroup row-five second-col">
+                                            <a href="#" class="org-link can-access-navy" title="공시대상 수정"></a>
+                                        </div>
+
+                                        <div class="manage-org-linkGroup row-six second-col">
+                                            <a href="#" class="org-link can-access-navy" title="공시대상 확정"></a>
+                                        </div>
+
+                                        <div class="manage-org-linkGroup row-seven second-col">
+                                            <a href="#" class="org-link can-access-bk" title="공시등록 확인"></a>
+                                        </div>
+
+                                        <div class="manage-org-linkGroup row-eight">
+                                            <a href="#" class="org-link can-access-Gr" t  itle="하반기 사유 입력기간 등록"></a>
+                                        </div>
+
+                                        <div class="manage-org-linkGroup row-nine">
+                                            <a href="#" class="org-link can-access-Ld" title="공시결과 레포트 생성"></a>
+                                        </div>
+                                    </div>
+                                    <!-- ./ 관리자 메인 클릭 가능한 버튼 그룹 -->
+                                </div>
+                            </div>
+                            <!-- ./ 관리자 메인 조직도 -->
+                        </div>
+                    </div>
+                </body>
+            </html>
+        </div>
+    </body>
+</html>

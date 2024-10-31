@@ -179,7 +179,21 @@ table tr.readOnly > td input[type="text"]{background:#f1f1f1 !important;}
 .manage-org-linkGroup.second-col {padding-left: 514px;}
 .manage-org-linkGroup:not(.row-one){padding-top: 18px;}
 .org-link {width: 169px; height: 70px; background-color: transparent; border-radius: 12px;} /* 투명 버튼 */
-a.org-link:hover {background-color: rgba(255, 255, 255, 0.4);} /* 호버 시 표현 */
+
+/* 관리자 메인 이미지 엑세스 색상 관련 추가 2024.10.31 이민혁 */
+/* navy */
+a.org-link.can-access-navy {background-color: rgba(0, 55, 100, 0.1);}
+a.org-link.can-access-navy:hover {background-color: rgba(0, 55, 100, 0.05);}
+/* bk */
+a.org-link.can-access-bk {background-color: rgba(25, 25, 25, 0.1)} 
+a.org-link.can-access-bk:hover {background-color: rgba(25, 25, 25, 0.05)} 
+/* red */
+a.org-link.can-access-Ld {background-color: rgba(187, 62, 65, 0.1);} 
+a.org-link.can-access-Ld:hover {background-color: rgba(187, 62, 65, 0.05);} 
+/* green */
+a.org-link.can-access-Gr {background-color: rgba(0, 138, 30, 0.1);} 
+a.org-link.can-access-Gr:hover {background-color: rgba(0, 138, 30, 0.05);} 
+
 /* 회계공시 대상 노동조합 생성 */
 .manage-org-linkGroup.row-three {flex-direction: column;}
 .manage-org-linkGroup.row-three .org-link:nth-of-type(1){height: 40px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-left-radius: 0; border-bottom-right-radius: 0;}
